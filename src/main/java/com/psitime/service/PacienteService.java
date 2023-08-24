@@ -6,7 +6,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.psitime.configs.TokenService;
 import com.psitime.dto.AuthenticationDTO;
 import com.psitime.dto.LoginResponseDTO;
@@ -30,8 +29,7 @@ public class PacienteService {
 	public ResponseEntity<LoginResponseDTO> login(AuthenticationDTO data) {
 		var usernamePassword = new UsernamePasswordAuthenticationToken(data.cpf(), data.senha());
 		var auth = this.authenticationManager.authenticate(usernamePassword);
-		var token = tokenService.generetedToken((Paciente) auth.getPrincipal());
-		//((Paciente) auth.getPrincipal()).get
+		String token = tokenService.generetedToken((Paciente) auth.getPrincipal());
 		return ResponseEntity.ok(new LoginResponseDTO(((Paciente) auth.getPrincipal()).getId(), token));
 	}
 	
@@ -52,9 +50,9 @@ public class PacienteService {
 	public ResponseEntity<PacienteDTO> getPacienteById(Long id) {
 		if(!repository.existsById(id)) return ResponseEntity.notFound().build();
     	
-	    	Paciente paciente = repository.getReferenceById(id);
+	    Paciente paciente = repository.getReferenceById(id);
 	    	
-	    	return ResponseEntity.ok(new PacienteDTO(paciente.getNome(), paciente.getEmail(), paciente.getCpf(), paciente.getDataNascimento()));
+	    return ResponseEntity.ok(new PacienteDTO(paciente.getNome(), paciente.getEmail(), paciente.getCpf(), paciente.getDataNascimento()));
 	}
 	    	
 	
