@@ -16,26 +16,27 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Table(name = "tb_paciente")
 @Entity(name = "tb_paciente")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Paciente implements UserDetails {
-	
+
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_paciente")
 	private long id;
-	private String nome;
+	@Getter private String nome;
 	private String email;
 	private String senha;
 	private String cpf;
 	private Date dataNascimento;
-	
-	public Paciente() {}
 	
 	
 	public Paciente (String nome, String email, String senha, String cpf, Date dataNascimento) {

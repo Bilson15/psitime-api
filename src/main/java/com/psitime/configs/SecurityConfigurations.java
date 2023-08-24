@@ -27,8 +27,9 @@ public class SecurityConfigurations {
 				.csrf(crsf -> crsf.disable())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(authorize -> authorize
-		
-				.anyRequest().permitAll())
+				.requestMatchers(HttpMethod.POST, "/api/paciente/login")
+				.permitAll()
+				.anyRequest().authenticated())
 				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
 				.build();
 	}

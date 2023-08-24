@@ -1,5 +1,5 @@
 package com.psitime.dto;
 
-public record LoginResponseDTO(String token) {
+public record LoginResponseDTO(Long idCliente, String token) {
 
 }
